@@ -7,7 +7,7 @@ import sys
 sys.path.append(os.getcwd())
 
 # Colocar el nombre del archivo a limpiar
-df = pd.read_excel('Ropa deportiva.xlsx')
+df = pd.read_excel('Mancuernas.xlsx')
 
 # Función para cambiar estilo de nombre de columnas a snake_case
 
