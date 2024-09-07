@@ -2,6 +2,7 @@ import re
 import sys
 import random
 import pandas as pd
+import os
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrighTimeoutError
 
 def tiempoAlea(val):
@@ -26,11 +27,10 @@ class TryExcept:
         except AttributeError:
             return "Valor no disponible"
 
-def scraping(head):
+def scraping(head,produbuscar):
     datosAmazon = []
     catchClause = TryExcept()
 
-    produbuscar = str(input("Ingresa el nombre del producto que quieres buscar: "))
     produbusner = produbuscar.replace(" ", "+")
     ingresoProducto = f"https://www.amazon.com/s?k={produbusner}&language=es_US"
 
@@ -110,9 +110,12 @@ def scraping(head):
         print(f"Ocurrió un error: {e}")
 
     print(f"Scraping realizado con éxito. Se guardará un archivo Excel")
-
+    
     df = pd.DataFrame(datosAmazon)
-    df.to_excel(f"{produbuscar}.xlsx", index=False)
+    #df.to_excel(output_file, index=False)
+
+    df.to_excel(f"./BasesDeDatos/{produbuscar}.xlsx", index=False)
+ 
     print(f"{produbuscar} se ha guardado con éxito")
-    dfrecien = pd.read_excel(f"{produbuscar}.xlsx")
+    dfrecien = pd.read_excel(f"./BasesDeDatos/{produbuscar}.xlsx")
     print(dfrecien)
