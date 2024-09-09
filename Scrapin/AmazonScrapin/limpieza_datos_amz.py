@@ -29,10 +29,15 @@ def Clean():
     # Procesar cada archivo
     for file in files:
         print(f"Procesando archivo: {file}")
+
         file_path = os.path.join(input_folder, file)
         
         # Leer el archivo Excel
         df = pd.read_excel(file_path)
+        
+        if df.empty:
+            print(f"El archivo {file_path} está vacío. Se ignora este archivo.")
+            continue 
         
         # Se aplica la función de cambio de estilo a las columnas del df
         df.columns = [to_snake_case(col) for col in df.columns]
@@ -64,3 +69,6 @@ def Clean():
         df.to_excel(output_file, index=False)
 
     print("Limpieza de archivos completada.")
+
+if __name__ == '__main__':
+    Clean()
